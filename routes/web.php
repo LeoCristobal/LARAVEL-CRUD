@@ -3,7 +3,7 @@
 use App\Models\Employer;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Route::get('/add-employer', function () {
 
     return view('index');
 });
@@ -14,6 +14,25 @@ Route::get('/employers', function (){
         'employers' => Employer::latest()->simplePaginate(5)
     ]);
 });
+
+Route::post('/add-employer', function () {
+        request()->validate([
+        'name' => ['required', 'min:3'],
+        'salary' => ['required'],
+        'phone_number' => ['required'],
+        'email' => ['required'],
+    ]);
+    Employer::create([
+        'name' => request('name'),
+        'salary' => request('salary'),
+        'phone_number' =>  request('phone_number'),
+        'email' => request('email'),
+
+    ]);
+    return redirect('/employers');
+});
+
+
 
 Route::get('/employer/update/{id}', function ($id) {
     $employer = Employer::findOrfail($id);
@@ -36,13 +55,12 @@ Route::patch('/employer/update/{id}', function ($id) {
       'salary' => request('salary'),
       'phone_number' =>  request('phone_number'),
       'email' => request('email'),
-
     ]);
 
     return redirect('/employers');
 });
 
-Route::get('/employer/delete/{id}', function ($id) {
+Route::delete('/employer/delete/{id}', function ($id) {
     Employer::findOrfail($id)->delete();
 
     return redirect('/employers');

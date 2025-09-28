@@ -22,12 +22,20 @@
                     <td class="px-4 py-2 border">{{ $employer->email }}</td>
                     <td class="px-4 py-2 border">{{ $employer->phone_number }}</td>
                     <td class="px-4 py-2 border text-center">
-                        <a href="/employer/update/{{ $employer->id }}" class="text-blue-600 hover:underline">
+                        <!-- Update button -->
+                        <a href="/employer/{{ $employer->id }}/edit" class="text-white bg-indigo-600 hover:bg-indigo-500 rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-2">
                             Update
                         </a>
-                        <a href="/employer/delete/{{ $employer->id }}" class="text-blue-600 hover:underline">
-                            Delete
-                        </a>
+
+                        <!-- Delete button -->
+                        <form action="/employer/delete/{{ $employer->id }}" method="POST" class="inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-white bg-red-600 hover:bg-red-500 rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
+                                Delete
+                            </button>
+                        </form>
+
                     </td>
                 </tr>
                 @endforeach
