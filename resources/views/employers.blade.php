@@ -23,7 +23,7 @@
                     <td class="px-4 py-2 border">{{ $employer->phone_number }}</td>
                     <td class="px-4 py-2 border text-center">
                         <!-- Update button -->
-                        <a href="/employer/{{ $employer->id }}/edit" class="text-white bg-indigo-600 hover:bg-indigo-500 rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-2">
+                        <a href="/employer/update/{{ $employer->id }}" class="text-white bg-indigo-600 hover:bg-indigo-500 rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-2">
                             Update
                         </a>
 

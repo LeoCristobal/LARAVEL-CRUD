@@ -32,8 +32,6 @@ Route::post('/add-employer', function () {
     return redirect('/employers');
 });
 
-
-
 Route::get('/employer/update/{id}', function ($id) {
     $employer = Employer::findOrfail($id);
     return view('update', [
