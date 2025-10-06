@@ -14,7 +14,7 @@ Route::get('/task/{task}/edit', [TaskController::class, 'edit']);
 Route::patch('/task/{task}/edit', [TaskController::class, 'update']);
 
 // create
-Route::get('/task/create', [TaskController::class, 'create']);
+Route::get('/tasks/create', [TaskController::class, 'create']);
 // Route::post('/task/create', [TaskController::class, 'create']);
 
 
