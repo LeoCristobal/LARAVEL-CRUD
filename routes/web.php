@@ -22,9 +22,11 @@ Route::middleware('auth')->group(function () {
 
     // delete/done
     Route::delete('task/delete/{task}', [TaskController::class, 'destroy']);
+
+    // logout
+
 });
 
-Route::middleware('guest')->group(function () {
     // register
     Route::get('/register', [RegisterUserController::class, 'create']);
     Route::post('/register', [RegisterUserController::class, 'store']);
@@ -32,5 +34,6 @@ Route::middleware('guest')->group(function () {
     // login
     Route::get('/login', [LoginUserController::class, 'create'])->name('login');
     Route::post('/login', [LoginUserController::class, 'store']);
+
     Route::post('/logout', [LoginUserController::class, 'destroy']);
-});
+

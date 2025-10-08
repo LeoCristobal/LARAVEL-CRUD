@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class TaskController extends Controller
@@ -14,7 +15,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::with('user')->latest()->simplePaginate(1);
+        $tasks = Task::with('user')->latest()->simplePaginate(10);
 
         return view('tasks.index', [
             'tasks' => $tasks
@@ -40,7 +41,7 @@ class TaskController extends Controller
 
         Task::create([
             'task' => $request->task,
-            'user_id' => 16
+            'user_id' => Auth::id()
         ]);
 
         return redirect('/tasks');
