@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,20 +23,17 @@ class LoginUserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(LoginUserRequest $request)
     {
-        $attr = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
+        $validated = $request->validated();
 
-        if (! Auth::attempt($attr)){
+        if (! Auth::attempt($validated)){
             throw ValidationException::withMessages([
-                'email' => 'Sorry. Those credentials do not match'
+                'email' => 'Sorry. Credentials do not match'
             ]);
-        }
+        };
 
-        $request->session()->regenerate();
+        session()->regenerate();
 
         return redirect('/');
     }

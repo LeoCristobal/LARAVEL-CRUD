@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 
 use Illuminate\Http\Request;
@@ -15,7 +17,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::with('user')->latest()->simplePaginate(10);
+        $tasks = Task::with('user')->latest()->where('user_id', Auth::id())->simplePaginate(10);
 
         return view('tasks.index', [
             'tasks' => $tasks
@@ -33,14 +35,12 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Task $task)
+    public function store(StoreTaskRequest $request, Task $task)
     {
-        request()->validate([
-            'task' => ['required', 'min:3'],
-        ]);
+        $validated = $request->validated();
 
         Task::create([
-            'task' => $request->task,
+            'task' => $validated['task'],
             'user_id' => Auth::id()
         ]);
 
@@ -70,16 +70,14 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(UpdateTaskRequest $request, Task $task)
     {
         Gate::authorize('edit', $task);
 
-        request()->validate([
-            'task' => ['required', 'min:3']
-        ]);
+        $validated = $request->validated();
 
         $task->update([
-            'task' => $request->task
+            'task' => $validated['task']
         ]);
 
         return redirect('/task/' . $task->id);

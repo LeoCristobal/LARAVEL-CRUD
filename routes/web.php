@@ -10,7 +10,7 @@ Route::view('/', 'welcome');
 Route::middleware('auth')->group(function () {
     // show
     Route::get('/tasks', [TaskController::class, 'index']);
-    Route::get('/task/{task}', [TaskController::class, 'show']);
+    Route::get('/task/{task}', [TaskController::class, 'show'])->can('edit', 'task');
 
     // edit
     Route::get('/task/{task}/edit', [TaskController::class, 'edit'])->can('edit', 'task');
@@ -21,10 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/task/create', [TaskController::class, 'store']);
 
     // delete/done
-    Route::delete('task/delete/{task}', [TaskController::class, 'destroy']);
-
-    // logout
-
+    Route::delete('task/delete/{task}', [TaskController::class, 'destroy'])->can('edit', 'task');
 });
 
     // register
@@ -35,5 +32,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/login', [LoginUserController::class, 'create'])->name('login');
     Route::post('/login', [LoginUserController::class, 'store']);
 
+    // logout
     Route::post('/logout', [LoginUserController::class, 'destroy']);
 
