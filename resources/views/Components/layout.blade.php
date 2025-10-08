@@ -19,10 +19,10 @@
                         <div class="hidden md:block">
                             <div class="ml-10 flex items-baseline space-x-4">
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
-                                {{-- @auth --}}
+                                @auth
                                 <x-navbar href="/" :active="request()->is('/')"> Home </x-navbar>
                                 <x-navbar href="/tasks" :active="request()->is('tasks')"> Task </x-navbar>
-                                {{-- @endauth --}}
+                                @endauth
 
                             </div>
                         </div>

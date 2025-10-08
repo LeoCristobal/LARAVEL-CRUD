@@ -17,7 +17,7 @@
                                 <input type="text" name="task" id="task" class="block flex-1 border-0 bg-transparent py-1.5 px-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" value="{{ $task->task }}" required>
                             </div>
                         </div>
-                        @error('tasks')
+                        @error('task')
                         <p class="text-sm text-red-500 font-bold mt-1">{{ $message }}</p>
                         @enderror
                     </div>

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TaskController extends Controller
 {
@@ -12,7 +14,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::with('user')->simplePaginate(1);
+        $tasks = Task::with('user')->latest()->simplePaginate(1);
 
         return view('tasks.index', [
             'tasks' => $tasks
@@ -34,11 +36,11 @@ class TaskController extends Controller
     {
         request()->validate([
             'task' => ['required', 'min:3'],
-            'user_id' => 16
         ]);
 
-        $task->create([
+        Task::create([
             'task' => $request->task,
+            'user_id' => 16
         ]);
 
         return redirect('/tasks');
@@ -69,6 +71,8 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
+        Gate::authorize('edit', $task);
+
         request()->validate([
             'task' => ['required', 'min:3']
         ]);

@@ -17,7 +17,7 @@
             </a>
             {{-- Action buttons (aligned left) --}}
             <div class="flex space-x-2">
-                <form method="POST" action="/delete/{{ $task->id }}">
+                <form method="POST" action="/task/delete/{{ $task->id }}">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="px-4 py-2 bg-green-500 text-white text-sm font-semibold rounded-md shadow hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400">
